@@ -1,5 +1,6 @@
 # IKEA Skadis Console
-An [OpenSCAD](https://openscad.org/) project to create console for various equipments to be mounted on IKEA Skadis pegboards.
+An [OpenSCAD](https://openscad.org/) project to create console for various equipments
+to be mounted on [IKEA Skadis boards](https://www.ikea.com/us/en/cat/skadis-series-37813).
 
 ## Howto
 1. [Download and Install OpenSCAD](https://openscad.org/downloads.html)
