@@ -19,6 +19,5 @@ ensure the console is strong enough to hold the equipment.
 use <vendors/mikrotik/rb5009.scad>;
 
 $fn = 50; // high resolution for smoother curves. Lower it for faster rendering.
-rotate([0,180,0]) // convenience - make hooks face upwards on the hotbed when imported into slicer
 rb5009_plate_with_sunk_head_bores_skadis_hook(thickness=3);
 ```
