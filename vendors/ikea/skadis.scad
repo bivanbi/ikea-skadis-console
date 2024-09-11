@@ -64,3 +64,9 @@ module skadis_reinforced_hook_with_pin(hole_displacement=35, reinforcement_facto
         translate([0,-hole_displacement,0]) skadis_pin();
     }
 }
+
+skadis_pin();
+translate([20, 0, 0]) skadis_hook();
+translate([40, 0, 0]) skadis_reinforced_hook();
+translate([60, 0, 0]) skadis_hook_with_pin();
+translate([80, 0, 0]) skadis_reinforced_hook_with_pin();

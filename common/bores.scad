@@ -1,3 +1,4 @@
+// use it with difference() function to 'bore' a whole into an object / plate
 module bore_sunk_head_screw(diameter = 4, depth = 10, sink_diameter = 8, sink_depth = 2, outer_sink_depth = 0) {
     
     // protrude from surface to work around OpenSCAD quick render issue
@@ -10,3 +11,5 @@ module bore_sunk_head_screw(diameter = 4, depth = 10, sink_diameter = 8, sink_de
         translate([0, 0, outer_sink_depth]) cylinder(d1 = sink_diameter, d2 = diameter, h = sink_depth);
     }
 }
+
+bore_sunk_head_screw();

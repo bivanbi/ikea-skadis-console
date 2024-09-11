@@ -72,3 +72,7 @@ module rb5009_plate_with_sunk_head_bores_skadis_hook(thickness = 5, height = 125
         translate([outer_hook_right_x, outer_hook_y, thickness]) skadis_reinforced_hook_with_pin(reinforcement_granularity = 0.2);
     }
 }
+
+rb5009_sunk_head_screw_bore();
+translate([10, 0, 0]) rb5009_plate_with_sunk_head_bores();
+translate([10, -150, 0]) rb5009_plate_with_sunk_head_bores_skadis_hook();
