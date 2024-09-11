@@ -14,7 +14,7 @@ module skadis_hook_curve(pin_diameter = 5, hook_curve_radius = 3) {
                 circle(d = pin_diameter);
 }
 
-module skadis_hook(board_thickness = 5, diameter = 5, hook_curve_radius = 4, hook_pin_length = 6) {
+module skadis_basic_hook(board_thickness = 5, diameter = 5, hook_curve_radius = 4, hook_pin_length = 6) {
     pin_radius = diameter / 2;
     
     hook_curve_offset = board_thickness + pin_radius - hook_curve_radius;
@@ -39,34 +39,43 @@ module skadis_hook(board_thickness = 5, diameter = 5, hook_curve_radius = 4, hoo
     }
 }
 
-module skadis_reinforced_hook(board_thickness = 5, diameter = 5, hook_curve_radius = 4, hook_pin_length = 6, reinforcement_factor = 2, reinforcement_granularity = 1) {
+module skadis_hook(board_thickness = 5, diameter = 5, hook_curve_radius = 4, hook_pin_length = 6, reinforcement_factor = 0, reinforcement_granularity = 1) {
     
     number_of_steps = reinforcement_factor / reinforcement_granularity;
     
     union() {
         for(step = [0:1:number_of_steps]) {
             offset = step * reinforcement_granularity;
-            translate([0, offset, 0]) skadis_hook(board_thickness = board_thickness, diameter = diameter, hook_curve_radius = hook_curve_radius, hook_pin_length = hook_pin_length);
+            translate([0, offset, 0]) skadis_basic_hook(board_thickness = board_thickness, diameter = diameter, hook_curve_radius = hook_curve_radius, hook_pin_length = hook_pin_length);
         }
     }
 }
 
-module skadis_hook_with_pin(hole_displacement=35) {
+// Shorthad with default values for easy usage in other modules
+module skadis_reinforced_hook(f = 2, g = 0.2) {
+    skadis_hook(reinforcement_factor = f, reinforcement_granularity = g);
+}
+
+module skadis_hook_with_pin(hole_displacement=35, reinforcement_factor = 0, reinforcement_granularity = 1) {
     union() {
-        skadis_hook();
+        skadis_hook(reinforcement_factor = reinforcement_factor, reinforcement_granularity = reinforcement_granularity);
         translate([0,-hole_displacement,0]) skadis_pin();
     }
 }
 
-module skadis_reinforced_hook_with_pin(hole_displacement=35, reinforcement_factor = 2, reinforcement_granularity = 1) {
-    union() {
-        skadis_reinforced_hook(reinforcement_factor = reinforcement_factor, reinforcement_granularity = reinforcement_granularity);
-        translate([0,-hole_displacement,0]) skadis_pin();
-    }
+// Shorthad with default values for easy usage in other modules
+module skadis_reinforced_hook_with_pin(d = 35, f = 2, g = 0.2) {   
+    skadis_hook_with_pin(hole_displacement = 35, reinforcement_factor = f, reinforcement_granularity = g);
 }
+
 
 skadis_pin();
-translate([20, 0, 0]) skadis_hook();
-translate([40, 0, 0]) skadis_reinforced_hook();
-translate([60, 0, 0]) skadis_hook_with_pin();
-translate([80, 0, 0]) skadis_reinforced_hook_with_pin();
+translate([20, 0, 0]) skadis_basic_hook();
+translate([40, 0, 0]) skadis_hook(); // result is the same as basic hook without reinforcement factor
+translate([60, 0, 0]) skadis_hook(reinforcement_factor = 2, reinforcement_granularity = 1);
+translate([80, 0, 0]) skadis_reinforced_hook(); // shorthand with default values
+
+translate([100, 0, 0]) skadis_hook_with_pin();
+translate([120, 0, 0]) skadis_hook_with_pin(reinforcement_factor = 2, reinforcement_granularity = 1);
+translate([140, 0, 0]) skadis_reinforced_hook_with_pin(); // shorthand with default values
+translate([160, 0, 0]) skadis_reinforced_hook_with_pin(g = 1); // shorthand with overridden value

@@ -59,16 +59,15 @@ module rb5009_plate_with_sunk_head_bores_skadis_hook(thickness = 5, height = 125
     
     outer_hook_right_x = plate_center_x + outer_hook_offset_x;
     inner_hook_right_x = outer_hook_right_x - skadis_hole_x_distance;
-    
 
     union() {
         rb5009_plate_with_sunk_head_bores(thickness=thickness, height=height, width=width);
     
-        translate([outer_hook_left_x, outer_hook_y, thickness]) skadis_reinforced_hook_with_pin(reinforcement_granularity = 0.2);
-        translate([inner_hook_left_x, inner_hook_y, thickness]) skadis_reinforced_hook_with_pin(reinforcement_granularity = 0.2);
+        translate([outer_hook_left_x, outer_hook_y, thickness]) skadis_reinforced_hook_with_pin();
+        translate([inner_hook_left_x, inner_hook_y, thickness]) skadis_reinforced_hook_with_pin();
 
-        translate([inner_hook_right_x, inner_hook_y, thickness]) skadis_reinforced_hook_with_pin(reinforcement_granularity = 0.2);
-        translate([outer_hook_right_x, outer_hook_y, thickness]) skadis_reinforced_hook_with_pin(reinforcement_granularity = 0.2);
+        translate([inner_hook_right_x, inner_hook_y, thickness]) skadis_reinforced_hook_with_pin();
+        translate([outer_hook_right_x, outer_hook_y, thickness]) skadis_reinforced_hook_with_pin();
     }
 }
 
