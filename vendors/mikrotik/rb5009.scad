@@ -1,8 +1,7 @@
 use <../../common/bores.scad>;
 use <../ikea/skadis.scad>;
 
-module rb5009_sunk_head_screw_bore(thickness=0) {
-    translate([0, 0, thickness])
+module rb5009_sunk_head_screw_bore() {
         rotate([180, 0, 0])
             bore_sunk_head_screw(diameter = 5, sink_diameter = 9, sink_depth = 2);
 }
