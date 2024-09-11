@@ -1,4 +1,10 @@
-module skadis_pin(height = 5, diameter = 5) {
+// holes are 'diagonal' on the board; adjacent columns / rows are offset by 
+function skadis_hole_x_distance() = 20;
+function skadis_hole_y_distance() = 20;
+function skadis_hole_diameter() = 5;
+function skadis_board_thickness() = 5;
+
+module skadis_pin(height = skadis_board_thickness(), diameter = skadis_hole_diameter()) {
     radius = diameter / 2;
     union() {
         cylinder(r = radius, h = height - radius);
@@ -6,7 +12,7 @@ module skadis_pin(height = 5, diameter = 5) {
     }
 }
 
-module skadis_hook_curve(pin_diameter = 5, hook_curve_radius = 3) {
+module skadis_hook_curve(pin_diameter = skadis_hole_diameter(), hook_curve_radius = 3) {
     translate([0,-hook_curve_radius,0])
     rotate([0,-90,0])
         rotate_extrude(angle=90)
@@ -14,7 +20,7 @@ module skadis_hook_curve(pin_diameter = 5, hook_curve_radius = 3) {
                 circle(d = pin_diameter);
 }
 
-module skadis_basic_hook(board_thickness = 5, diameter = 5, hook_curve_radius = 4, hook_pin_length = 6) {
+module skadis_basic_hook(board_thickness = skadis_board_thickness(), diameter = skadis_hole_diameter(), hook_curve_radius = 4, hook_pin_length = 6) {
     pin_radius = diameter / 2;
     
     hook_curve_offset = board_thickness + pin_radius - hook_curve_radius;
@@ -39,8 +45,7 @@ module skadis_basic_hook(board_thickness = 5, diameter = 5, hook_curve_radius = 
     }
 }
 
-module skadis_hook(board_thickness = 5, diameter = 5, hook_curve_radius = 4, hook_pin_length = 6, reinforcement_factor = 0, reinforcement_granularity = 1) {
-    
+module skadis_hook(board_thickness = skadis_board_thickness(), diameter = skadis_hole_diameter(), hook_curve_radius = 4, hook_pin_length = 6, reinforcement_factor = 0, reinforcement_granularity = 1) {
     number_of_steps = reinforcement_factor / reinforcement_granularity;
     
     union() {
