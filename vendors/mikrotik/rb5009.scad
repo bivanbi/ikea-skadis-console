@@ -1,4 +1,5 @@
 use <../../common/bores.scad>;
+use <../../common/plates.scad>;
 use <../ikea/skadis.scad>;
 
 module rb5009_sunk_head_screw_bore() {
@@ -30,7 +31,7 @@ module rb5009_plate_with_sunk_head_bores(thickness = 5, height = 125, width = 22
 
     
     difference() {
-        translate([0,0,0]) cube([width,height,thickness]);
+        plate_rounded_corners(w = width, h = height, t = thickness);
 
         translate([bore_left_x, bore_bottom_y, thickness]) rb5009_sunk_head_screw_bore();
         translate([bore_left_x, bore_top_y, thickness]) rb5009_sunk_head_screw_bore();
