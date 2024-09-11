@@ -56,16 +56,16 @@ module skadis_reinforced_hook(f = 2, g = 0.2) {
     skadis_hook(reinforcement_factor = f, reinforcement_granularity = g);
 }
 
-module skadis_hook_with_pin(hole_displacement=35, reinforcement_factor = 0, reinforcement_granularity = 1) {
+module skadis_hook_with_pin(pin_displacement=35, reinforcement_factor = 0, reinforcement_granularity = 1) {
     union() {
         skadis_hook(reinforcement_factor = reinforcement_factor, reinforcement_granularity = reinforcement_granularity);
-        translate([0,-hole_displacement,0]) skadis_pin();
+        translate([0,-pin_displacement,0]) skadis_pin();
     }
 }
 
 // Shorthad with default values for easy usage in other modules
 module skadis_reinforced_hook_with_pin(d = 35, f = 2, g = 0.2) {   
-    skadis_hook_with_pin(hole_displacement = 35, reinforcement_factor = f, reinforcement_granularity = g);
+    skadis_hook_with_pin(pin_displacement = 35, reinforcement_factor = f, reinforcement_granularity = g);
 }
 
 
