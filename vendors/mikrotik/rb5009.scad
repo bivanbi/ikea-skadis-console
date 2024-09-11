@@ -12,7 +12,6 @@ module rb5009_plate_with_sunk_head_bores(thickness = 5, height = 125, width = 22
     bore_distance_x = 206;
     bore_distance_y = 22;
     
-    bore_z_offset = 0;
     height = max(minimum_height, height);
     
     plate_center_x = width / 2;
