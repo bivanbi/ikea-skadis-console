@@ -149,10 +149,9 @@ module rb5009_halfplate_with_sunk_head_bores_skadis_hook_right(t = plate_default
     translate([width, 0,0]) mirror([1, 0, 0]) rb5009_halfplate_with_sunk_head_bores_skadis_hook_left(t = t, h = h);
 }
 
-rb5009_sunk_head_screw_bore();
-translate([0, 0, 0]) rb5009_plate_with_sunk_head_bores();
-translate([0, -150, 0]) rb5009_plate_with_sunk_head_bores_skadis_hook();
-translate([0, -300, 0]) rb5009_lightweight_plate_with_sunk_head_bores_skadis_hook();
+color("lightblue") translate([0, 0, 0]) rb5009_plate_with_sunk_head_bores();
+color("lightgreen") translate([0, -150, 0]) rb5009_plate_with_sunk_head_bores_skadis_hook();
+color("orange") translate([0, -300, 0]) rb5009_lightweight_plate_with_sunk_head_bores_skadis_hook();
 
-translate([0, -450, 0]) rb5009_halfplate_with_sunk_head_bores_skadis_hook_left();
-translate([60, -450, 0]) rb5009_halfplate_with_sunk_head_bores_skadis_hook_right();
+color("lightgray") translate([0, -450, 0]) rb5009_halfplate_with_sunk_head_bores_skadis_hook_left();
+color("white") translate([60, -450, 0]) rb5009_halfplate_with_sunk_head_bores_skadis_hook_right();
