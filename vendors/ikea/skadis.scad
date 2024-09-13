@@ -75,12 +75,12 @@ module skadis_reinforced_hook_with_pin(d = 35, f = 2, g = 0.2) {
 
 
 skadis_pin();
-translate([20, 0, 0]) skadis_basic_hook();
-translate([40, 0, 0]) skadis_hook(); // result is the same as basic hook without reinforcement factor
-translate([60, 0, 0]) skadis_hook(reinforcement_factor = 2, reinforcement_granularity = 1);
-translate([80, 0, 0]) skadis_reinforced_hook(); // shorthand with default values
+color("lightblue") translate([20, 0, 0]) skadis_basic_hook();
+color("lightgreen") translate([40, 0, 0]) skadis_hook(); // result is the same as basic hook without reinforcement factor
+color("orange") translate([60, 0, 0]) skadis_hook(reinforcement_factor = 2, reinforcement_granularity = 1);
+color("lightgrey") translate([80, 0, 0]) skadis_reinforced_hook(); // shorthand with default values
 
-translate([100, 0, 0]) skadis_hook_with_pin();
-translate([120, 0, 0]) skadis_hook_with_pin(reinforcement_factor = 2, reinforcement_granularity = 1);
-translate([140, 0, 0]) skadis_reinforced_hook_with_pin(); // shorthand with default values
-translate([160, 0, 0]) skadis_reinforced_hook_with_pin(g = 1); // shorthand with overridden value
+color("grey") translate([0, -80, 0]) skadis_hook_with_pin();
+color("brown") translate([20, -80, 0]) skadis_hook_with_pin(reinforcement_factor = 2, reinforcement_granularity = 1);
+color("yellow") translate([40, -80, 0]) skadis_reinforced_hook_with_pin(); // shorthand with default values
+color("red") translate([60, -80, 0]) skadis_reinforced_hook_with_pin(g = 1); // shorthand with overridden value
