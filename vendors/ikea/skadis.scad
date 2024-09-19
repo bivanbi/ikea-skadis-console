@@ -3,6 +3,7 @@ function skadis_hole_x_distance() = 20;
 function skadis_hole_y_distance() = 20;
 function skadis_hole_diameter() = 5;
 function skadis_board_thickness() = 5;
+function skadis_hook_pin_distance() = 31; // allow a little play for easier mounting
 
 module skadis_pin(height = skadis_board_thickness(), diameter = skadis_hole_diameter()) {
     radius = diameter / 2;
@@ -61,7 +62,7 @@ module skadis_reinforced_hook(f = 2, g = 0.2) {
     skadis_hook(reinforcement_factor = f, reinforcement_granularity = g);
 }
 
-module skadis_hook_with_pin(pin_displacement=35, reinforcement_factor = 0, reinforcement_granularity = 1) {
+module skadis_hook_with_pin(pin_displacement=skadis_hook_pin_distance(), reinforcement_factor = 0, reinforcement_granularity = 1) {
     union() {
         skadis_hook(reinforcement_factor = reinforcement_factor, reinforcement_granularity = reinforcement_granularity);
         translate([0,-pin_displacement,0]) skadis_pin();
@@ -69,8 +70,8 @@ module skadis_hook_with_pin(pin_displacement=35, reinforcement_factor = 0, reinf
 }
 
 // Shorthad with default values for easy usage in other modules
-module skadis_reinforced_hook_with_pin(d = 35, f = 2, g = 0.2) {   
-    skadis_hook_with_pin(pin_displacement = 35, reinforcement_factor = f, reinforcement_granularity = g);
+module skadis_reinforced_hook_with_pin(d = skadis_hook_pin_distance(), f = 2, g = 0.2) {   
+    skadis_hook_with_pin(pin_displacement = d, reinforcement_factor = f, reinforcement_granularity = g);
 }
 
 
