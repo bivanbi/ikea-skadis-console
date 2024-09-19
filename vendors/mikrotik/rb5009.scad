@@ -123,7 +123,7 @@ module rb5009_halfplate_for_skadis_hook_left(t = plate_default_thickness, h = rb
     
     bottom_right_x = 15 - r;
 
-    () { // corners from bottom left clockwise
+    hull() { // corners from bottom left clockwise
         translate([0 + r, 0 + r, 0]) cylinder(h = t, r = r); // bottom left corner        
         translate([0 + r, h - r, 0]) cylinder(h = t, r = r); // top left corner
         translate([inner_edge_x, h - r, 0]) cylinder(h = t, r = r); // top right corner
