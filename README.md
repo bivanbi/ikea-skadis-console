@@ -12,22 +12,12 @@ Optional tool to render multiple `.scad` files with ease.
 
 ## Howto
 1. Clone this repository
-2. Create an OpenSCAD file and use the provided modules from the repo as needed
-3. Render the scenery with F6
-4. Export as STL or other formats supported by your slicer software 
+2. Render an existing scad file or create your custom version
+3Export as STL or other formats supported by your slicer software 
    (e.g. [PrusaSlicer](https://www.prusa3d.com/prusaslicer/))
 
 When slicing, use proper filling and / or outer wall thickness to
 ensure the console is strong enough to hold the equipment.
-
-## Example
-[Mikrotik RB5009](https://mikrotik.com/product/rb5009ug_s_in) console with ports facing downwards, reduced thickness and sunk head bores for screws.
-```
-use <vendors/mikrotik/rb5009.scad>;
-
-$fn = 50; // high resolution for smoother curves. Lower it for faster rendering.
-rb5009_plate_with_sunk_head_bores_skadis_hook(thickness=3);
-```
 
 ## Render into STL or other model file format
 
@@ -56,7 +46,7 @@ openscad -o output.stl -D '$fn=50' input.scad
 1. Open a terminal
 2. Run Gotask with the directory containing the `.scad` files, e.g.:
    ```bash
-   cd vendors/mikrotik
+   cd vendors/mikrotik/rb5009
    task all
    # or simply
    task
