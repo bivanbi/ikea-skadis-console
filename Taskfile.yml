@@ -37,6 +37,6 @@ tasks:
         set -e
         [[ -z "{{.file}}" ]] && echo "No file specified" && exit 1
         echo "Rendering '{{.file}}' into '{{.format}}' format with a resolution of '{{.resolution}}'"
-        _EXPORT_FILE="{{.dir}}/$(basename "{{.file}}" .scad).{{.format}}"
-        echo "Rendering '{{.file}}' into '${_EXPORT_FILE}, resolution: {{.resolution}}'"
+        cd "{{.dir}}"
+        _EXPORT_FILE="$(dirname "{{.file}}")/$(basename "{{.file}}" .scad).{{.format}}"
         openscad -o "${_EXPORT_FILE}" -D '$fn={{.resolution}}' "{{.file}}"
