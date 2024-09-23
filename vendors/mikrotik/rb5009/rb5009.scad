@@ -1,7 +1,7 @@
-use <../../common/bores.scad>;
-use <../../common/plates.scad>;
-use <../../common/text.scad>;
-use <../ikea/skadis.scad>;
+use <../../../common/bores.scad>;
+use <../../../common/plates.scad>;
+use <../../../common/text.scad>;
+use <../../ikea/skadis.scad>;
 
 function rb5009_width() = 220;
 function rb5009_height() = 125;
