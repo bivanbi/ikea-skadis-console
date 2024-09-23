@@ -21,7 +21,6 @@ tasks:
     cmds:
       - |
         set -e
-        echo "Resolution: {{.resolution}}"
         for _FILE in $(ls {{.dir}}/*.scad); do
           task render -- "${_FILE}"
         done
