@@ -10,15 +10,6 @@ Download OpenSCAD from [OpenSCAD](https://www.openscad.org/downloads.html)
 ### Gotask (optional)
 Optional tool to render multiple `.scad` files with ease.
 
-## Howto
-1. Clone this repository
-2. Render an existing scad file or create your custom version
-3Export as STL or other formats supported by your slicer software 
-   (e.g. [PrusaSlicer](https://www.prusa3d.com/prusaslicer/))
-
-When slicing, use proper filling and / or outer wall thickness to
-ensure the console is strong enough to hold the equipment.
-
 ## Render into STL or other model file format
 
 ### OpenSCAD - GUI
@@ -37,7 +28,7 @@ ensure the console is strong enough to hold the equipment.
    ```
    You can use any [export format supported by OpenSCAD](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Export).
    
-A render resolution of 50 is recommended, e.g.:
+A render resolution of at least 50 is recommended, e.g.:
 ```bash
 openscad -o output.stl -D '$fn=50' input.scad
 ```
@@ -46,29 +37,45 @@ openscad -o output.stl -D '$fn=50' input.scad
 1. Open a terminal
 2. Run Gotask with the directory containing the `.scad` files, e.g.:
    ```bash
-   cd vendors/mikrotik/rb5009
+   cd path/to/directory
    task all
    # or simply
    task
    ```
-    
+
+*This will also create a PNG preview and an STL file for each `.scad` file in the directory.*
+
 ### Render a single `.scad` file from command line with Gotask
 1. Open a terminal
 2. Run Gotask with the directory containing the `.scad` files, e.g.:
    ```bash
-   cd vendors/mikrotik
+   cd path/to/directory
    task render -- <SCAD filename>
+   # or
+   task render -- <path/to/filename.scad>
    ```
-   
-#### Override format and render resolution
+
+### Create PNG image of a single `.scad` file from command line with Gotask
+1. Open a terminal
+2. Run Gotask with the directory containing the `.scad` files, e.g.:
+   ```bash
+   cd path/to/directory
+   task bitmap -- <SCAD filename>
+   # or
+   task bitmap -- <path/to/filename.scad>
+   ```
+
+#### Override default settings
 ##### On commandline:
 Invoke Gotask with environment variables set, e.g.:
 ```bash
-FORMAT=stl RESOLUTION=50 task
+RENDER_FORMAT=stl RENDER_RESOLUTION=50 BITMAP_SIZE_X=1920 BITMAP_SIZE_Y=1080 task
 
 # or
-export FORMAT=stl
-export RESOLUTION=50
+export RENDER_FORMAT=stl
+export RENDER_RESOLUTION=50
+export BITMAP_SIZE_X=1920
+export BITMAP_SIZE_Y=1080
 task
 ```
 
