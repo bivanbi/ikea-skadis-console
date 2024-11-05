@@ -3,6 +3,7 @@ function skadis_hole_x_distance() = 20;
 function skadis_hole_y_distance() = 20;
 function skadis_hole_diameter() = 5;
 function skadis_board_thickness() = 5;
+function skadis_hook_loose_fit() = 0.5; // to tight fit might lead to chopped hook
 function skadis_hook_pin_distance() = 31; // allow a little play for easier mounting
 
 module skadis_pin(height = skadis_board_thickness(), diameter = skadis_hole_diameter()) {
@@ -21,11 +22,20 @@ module skadis_hook_curve(pin_diameter = skadis_hole_diameter(), hook_curve_radiu
                 circle(d = pin_diameter);
 }
 
-module skadis_basic_hook(board_thickness = skadis_board_thickness(), diameter = skadis_hole_diameter(), hook_curve_radius = 4, hook_pin_length = 6) {
+module skadis_basic_hook(
+    board_thickness = skadis_board_thickness(),
+    hook_loose_fit = skadis_hook_loose_fit(),
+    diameter = skadis_hole_diameter(),
+    hook_curve_radius = 4,
+    hook_pin_length = 6
+) {
     pin_radius = diameter / 2;
     
-    hook_curve_offset = board_thickness + pin_radius - hook_curve_radius;
+    hook_curve_offset = board_thickness + pin_radius + hook_loose_fit - hook_curve_radius;
     hook_pin_body_length = hook_pin_length - hook_curve_radius;
+
+    pin_body_offset_z = board_thickness + pin_radius + hook_loose_fit;
+    ball_end_offset_z = board_thickness + pin_radius + hook_loose_fit;
 
     union() {        
         // hook - backplate body
@@ -36,23 +46,31 @@ module skadis_basic_hook(board_thickness = skadis_board_thickness(), diameter = 
             skadis_hook_curve(pin_diameter=diameter, hook_curve_radius = hook_curve_radius);
 
         // hook pin body
-        translate([0, - hook_curve_radius, board_thickness + pin_radius]) 
+        translate([0, - hook_curve_radius, pin_body_offset_z])
             rotate([-90,0,180])
                 cylinder(r = pin_radius, h = hook_pin_body_length);
 
         // ball end
-        translate([0, -hook_pin_length, board_thickness + pin_radius])
+        translate([0, - hook_pin_length, ball_end_offset_z])
             sphere(r = pin_radius);
     }
 }
 
-module skadis_hook(board_thickness = skadis_board_thickness(), diameter = skadis_hole_diameter(), hook_curve_radius = 4, hook_pin_length = 6, reinforcement_factor = 0, reinforcement_granularity = 1) {
+module skadis_hook(
+    board_thickness = skadis_board_thickness(),
+    hook_loose_fit = skadis_hook_loose_fit(),
+    diameter = skadis_hole_diameter(),
+    hook_curve_radius = 4,
+    hook_pin_length = 6,
+    reinforcement_factor = 0,
+    reinforcement_granularity = 1
+) {
     number_of_steps = reinforcement_factor / reinforcement_granularity;
     
     union() {
         for(step = [0:1:number_of_steps]) {
             offset = step * reinforcement_granularity;
-            translate([0, offset, 0]) skadis_basic_hook(board_thickness = board_thickness, diameter = diameter, hook_curve_radius = hook_curve_radius, hook_pin_length = hook_pin_length);
+            translate([0, offset, 0]) skadis_basic_hook(board_thickness = board_thickness, hook_loose_fit = hook_loose_fit, diameter = diameter, hook_curve_radius = hook_curve_radius, hook_pin_length = hook_pin_length);
         }
     }
 }
