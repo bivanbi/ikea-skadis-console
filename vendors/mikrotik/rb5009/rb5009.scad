@@ -5,6 +5,7 @@ use <../../ikea/skadis.scad>;
 
 function rb5009_width() = 220;
 function rb5009_height() = 125;
+function rb5009_height_without_heatsink() = 102;
 
 function rb5009_bore_diameter() = 5;
 function rb5009_hex_nut_size() = 4; // M4
@@ -17,7 +18,6 @@ function rb5009_bore_row2_y() = rb5009_bore_row1_y() + rb5009_bore_distance_y();
 
 plate_default_thickness = 6;
 plate_minimum_height = 50;
-
 
 plate_center_x = rb5009_width() / 2;
 bore_offset_x = rb5009_bore_distance_x() / 2;
@@ -52,7 +52,7 @@ module rb5009_carved_text(t = plate_default_thickness, s = default_font_size, f 
     text_carved(text = text, z = t, s = s, f = f);
 }
 
-module rb5009_plate_with_sunk_head_bores(t = plate_default_thickness, h = rb5009_height()) {
+module rb5009_plate_with_sunk_head_bores(t = plate_default_thickness, h = rb5009_height_without_heatsink()) {
     height = max(plate_minimum_height, h);
     
     text_x = bore_left_x + 10;
@@ -71,7 +71,7 @@ module rb5009_plate_with_sunk_head_bores(t = plate_default_thickness, h = rb5009
     }
 }
 
-module rb5009_skadis_hooks(t = plate_default_thickness, h = rb5009_height()) {
+module rb5009_skadis_hooks(t = plate_default_thickness, h = rb5009_height_without_heatsink()) {
     
     outer_hook_right_x = plate_center_x + outer_hook_offset_x;
     inner_hook_right_x = plate_center_x + inner_hook_offset_x;
@@ -105,7 +105,7 @@ module rb5009_lightweight_plate_holes(t, h, w) {
     translate([hollow_right_x, hollow_bottom_y, z]) plate_rounded_corners(w = hollow_width, h = hollow_height, t = t);
 }
 
-module rb5009_plate_with_sunk_head_bores_skadis_hook(t = plate_default_thickness, h = rb5009_height(), w = rb5009_width()) {
+module rb5009_plate_with_sunk_head_bores_skadis_hook(t = plate_default_thickness, h = rb5009_height_without_heatsink(), w = rb5009_width()) {
         
     union() {
         rb5009_plate_with_sunk_head_bores(t = t, h = h);
@@ -113,14 +113,14 @@ module rb5009_plate_with_sunk_head_bores_skadis_hook(t = plate_default_thickness
     }
 }
 
-module rb5009_lightweight_plate_with_sunk_head_bores_skadis_hook(t = plate_default_thickness, h = rb5009_height(), w = rb5009_width()) {
+module rb5009_lightweight_plate_with_sunk_head_bores_skadis_hook(t = plate_default_thickness, h = rb5009_height_without_heatsink(), w = rb5009_width()) {
     difference() {
         rb5009_plate_with_sunk_head_bores_skadis_hook(t = t, h = h, w = w);
         rb5009_lightweight_plate_holes(t = t, h = h, w = w);
     }
 }
 
-module rb5009_halfplate_for_skadis_hook_left(t = plate_default_thickness, h = rb5009_height()) {
+module rb5009_halfplate_for_skadis_hook_left(t = plate_default_thickness, h = rb5009_height_without_heatsink()) {
     width = inner_hook_left_x + outer_hook_left_x;
     r = 9;
     
@@ -138,7 +138,7 @@ module rb5009_halfplate_for_skadis_hook_left(t = plate_default_thickness, h = rb
     }
 }
 
-module rb5009_halfplate_square_hollow_left(t = plate_default_thickness, h = rb5009_height()) {
+module rb5009_halfplate_square_hollow_left(t = plate_default_thickness, h = rb5009_height_without_heatsink()) {
     w = skadis_hole_x_distance();
     x = outer_hook_left_x + w / 2;
     y = pin_y(h);
@@ -150,26 +150,7 @@ module rb5009_halfplate_square_hollow_left(t = plate_default_thickness, h = rb50
 
 }
 
-module rb5009_halfplate_triangle_hollow_left(t = plate_default_thickness, h = rb5009_height()) {
-    w = skadis_hole_x_distance();
-    r = 3;
-    t = t + 2 * openscad_quickrender_bug_workaround_factor;
-    z = -openscad_quickrender_bug_workaround_factor;
-    
-    top_y = pin_y(h) - 20;
-    bottom_y = rb5009_bore_row2_y();
-   
-    outer_x = outer_hook_left_x + w / 2;
-    inner_x = outer_x + skadis_hole_x_distance() - 5;
-
-    hull() { // corners from bottom left clockwise
-        translate([outer_x + r, bottom_y + r, z]) cylinder(h = t, r = r); // bottom left corner        
-        translate([outer_x + r, top_y - r, z]) cylinder(h = t, r = r); // top left corner
-        translate([inner_x, top_y - r, z]) cylinder(h = t, r = r); // top right corner
-    }
-}
-
-module rb5009_halfplate_with_sunk_head_bores_skadis_hook_left_notext(t = plate_default_thickness, h = rb5009_height()) {
+module rb5009_halfplate_with_sunk_head_bores_skadis_hook_left_notext(t = plate_default_thickness, h = rb5009_height_without_heatsink()) {
 
     width = inner_hook_left_x + outer_hook_left_x;
     
@@ -186,7 +167,6 @@ module rb5009_halfplate_with_sunk_head_bores_skadis_hook_left_notext(t = plate_d
             translate([bore_left_x, rb5009_bore_row2_y(), t]) rb5009_sink_hex_nut_screw_bore();
             
             rb5009_halfplate_square_hollow_left();
-            rb5009_halfplate_triangle_hollow_left();
         }
         
         translate([outer_hook_left_x, hook_y(h), t]) skadis_reinforced_hook_with_pin();
@@ -194,7 +174,7 @@ module rb5009_halfplate_with_sunk_head_bores_skadis_hook_left_notext(t = plate_d
     }
 }
 
-module rb5009_halfplate_with_sunk_head_bores_skadis_hook_left(t = plate_default_thickness, h = rb5009_height()) {
+module rb5009_halfplate_with_sunk_head_bores_skadis_hook_left(t = plate_default_thickness, h = rb5009_height_without_heatsink()) {
     
     rb5009_text_x = bore_left_x + 10;
     rb5009_text_y = pin_y(h) - 10;
@@ -217,7 +197,7 @@ module rb5009_halfplate_with_sunk_head_bores_skadis_hook_left(t = plate_default_
     }
 }
 
-module rb5009_halfplate_with_sunk_head_bores_skadis_hook_right(t = plate_default_thickness, h = rb5009_height()) {
+module rb5009_halfplate_with_sunk_head_bores_skadis_hook_right(t = plate_default_thickness, h = rb5009_height_without_heatsink()) {
     inner_hook_left_x = plate_center_x - outer_hook_offset_x;
     outer_hook_left_x = inner_hook_left_x + skadis_hole_x_distance() * 2;
     width = inner_hook_left_x + outer_hook_left_x;
