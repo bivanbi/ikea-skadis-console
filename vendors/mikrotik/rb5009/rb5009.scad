@@ -7,12 +7,15 @@ function rb5009_width() = 220;
 function rb5009_height() = 125;
 
 function rb5009_bore_diameter() = 5;
+function rb5009_hex_nut_size() = 4; // M4
+function rb5009_hex_nut_thickness() = 3;
+
 function rb5009_bore_distance_x() = 206;
 function rb5009_bore_distance_y() = 22;
 function rb5009_bore_row1_y() = 14;
 function rb5009_bore_row2_y() = rb5009_bore_row1_y() + rb5009_bore_distance_y(); 
 
-plate_default_thickness = 5;
+plate_default_thickness = 6;
 plate_minimum_height = 50;
 
 
@@ -35,10 +38,14 @@ default_font = "Arial:style=Bold";
 function hook_y(h) = h - hook_offset_from_top;
 function pin_y(h) = hook_y(h) - skadis_hook_pin_distance();
 
-
 module rb5009_sunk_head_screw_bore() {
         rotate([180, 0, 0])
             bore_sunk_head_screw(diameter = rb5009_bore_diameter(), sink_diameter = 9, sink_depth = 2);
+}
+
+module rb5009_sink_hex_nut_screw_bore() {
+        rotate([180, 0, 30])
+            bore_sunk_hex_nut_screw(diameter = rb5009_bore_diameter(), nut_size = rb5009_hex_nut_size(), sink_depth = rb5009_hex_nut_thickness());
 }
 
 module rb5009_carved_text(t = plate_default_thickness, s = default_font_size, f = default_font, text = "rb5009") {
@@ -54,11 +61,11 @@ module rb5009_plate_with_sunk_head_bores(t = plate_default_thickness, h = rb5009
     difference() {
         plate_rounded_corners(w = rb5009_width(), h = height, t = t);
 
-        translate([bore_left_x, rb5009_bore_row1_y(), t]) rb5009_sunk_head_screw_bore();
-        translate([bore_left_x, rb5009_bore_row2_y(), t]) rb5009_sunk_head_screw_bore();
+        translate([bore_left_x, rb5009_bore_row1_y(), t]) rb5009_sink_hex_nut_screw_bore();
+        translate([bore_left_x, rb5009_bore_row2_y(), t]) rb5009_sink_hex_nut_screw_bore();
 
-        translate([bore_right_x, rb5009_bore_row1_y(), t]) rb5009_sunk_head_screw_bore();
-        translate([bore_right_x, rb5009_bore_row2_y(), t]) rb5009_sunk_head_screw_bore();
+        translate([bore_right_x, rb5009_bore_row1_y(), t]) rb5009_sink_hex_nut_screw_bore();
+        translate([bore_right_x, rb5009_bore_row2_y(), t]) rb5009_sink_hex_nut_screw_bore();
         
         translate([text_x, text_y, 0]) rb5009_carved_text(t = t);
     }
@@ -175,8 +182,8 @@ module rb5009_halfplate_with_sunk_head_bores_skadis_hook_left_notext(t = plate_d
         difference() {
             rb5009_halfplate_for_skadis_hook_left(h = h, t = t);
            
-            translate([bore_left_x, rb5009_bore_row1_y(), t]) rb5009_sunk_head_screw_bore();
-            translate([bore_left_x, rb5009_bore_row2_y(), t]) rb5009_sunk_head_screw_bore();
+            translate([bore_left_x, rb5009_bore_row1_y(), t]) rb5009_sink_hex_nut_screw_bore();
+            translate([bore_left_x, rb5009_bore_row2_y(), t]) rb5009_sink_hex_nut_screw_bore();
             
             rb5009_halfplate_square_hollow_left();
             rb5009_halfplate_triangle_hollow_left();
