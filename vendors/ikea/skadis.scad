@@ -3,6 +3,8 @@ function skadis_hole_x_distance() = 20;
 function skadis_hole_y_distance() = 20;
 function skadis_hole_diameter() = 5;
 function skadis_board_thickness() = 5;
+
+function skadis_hook_diameter_clearance() = 0.1; // clearance for easier mounting
 function skadis_hook_loose_fit() = 0.5; // too tight fit might lead to chopped hook
 function skadis_hook_pin_distance() = 33; // allow a little play for easier mounting
 
@@ -29,6 +31,7 @@ module skadis_basic_hook(
     hook_curve_radius = 4,
     hook_pin_length = 6
 ) {
+    diameter = diameter - skadis_hook_diameter_clearance();
     pin_radius = diameter / 2;
     
     hook_curve_offset = board_thickness + pin_radius + hook_loose_fit - hook_curve_radius;
