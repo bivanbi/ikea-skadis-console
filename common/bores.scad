@@ -2,6 +2,16 @@ include <BOSL/constants.scad>
 use <BOSL/metric_screws.scad>
 
 // use it with difference() function to 'bore' a whole into an object / plate
+module bore(diameter = 4, depth = 10) {
+    // protrude from surface to work around OpenSCAD quick render issue
+    workaround_quick_render_issue_depth_offset = 0.01;
+
+    union() {
+        translate([0, 0, workaround_quick_render_issue_depth_offset]) cylinder(d = diameter, h = depth);
+    }
+}
+
+// use it with difference() function to 'bore' a whole into an object / plate
 module bore_sunk_head_screw(diameter = 4, depth = 10, sink_diameter = 8, sink_depth = 2, outer_sink_depth = 0) {
     
     // protrude from surface to work around OpenSCAD quick render issue
