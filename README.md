@@ -5,7 +5,8 @@ to be mounted on [IKEA Skadis boards](https://www.ikea.com/us/en/cat/skadis-seri
 ## Dependencies
 ### OpenSCAD (required)
 Required to render the `.scad` files into STL or other model file format.
-Download OpenSCAD from [OpenSCAD](https://www.openscad.org/downloads.html)
+Download OpenSCAD from [OpenSCAD](https://www.openscad.org/downloads.html#snapshots).
+Make sure to download a *development snapshot* for the latest features.
 
 #### OpenSCAD Libraries
 1. [BOSL](https://github.com/revarbat/BOSL/wiki) - required for metric screws and nuts
